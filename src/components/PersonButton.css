@@ -7,22 +7,16 @@
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  background: var(--surface);
-  box-shadow: var(--shadow-md);
+  background: transparent;
   overflow: visible;
   z-index: 1;
   will-change: transform;
-  transition: box-shadow 0.25s ease, z-index 0s;
+  perspective: 700px;
   -webkit-tap-highlight-color: transparent;
 }
 
-.person-btn--hovered {
+.person-btn--flipped {
   z-index: 10;
-  box-shadow: var(--shadow-lg);
-}
-
-.person-btn--bump .person-btn__ring {
-  animation: bump-flash 0.45s ease;
 }
 
 .person-btn__ring {
@@ -34,16 +28,76 @@
   opacity: 0.9;
 }
 
-.person-btn__avatar {
+.person-btn--bump .person-btn__ring {
+  animation: bump-flash 0.45s ease;
+}
+
+.person-btn__card {
   position: absolute;
-  inset: 10%;
-  width: 80%;
-  height: 80%;
-  object-fit: contain;
+  inset: 0;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
   pointer-events: none;
-  user-select: none;
+}
+
+.person-btn--flipped .person-btn__card {
+  transform: rotateY(180deg);
+}
+
+.person-btn__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.person-btn__face--front {
+  background:
+    radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    var(--surface);
+}
+
+.person-btn__face--back {
+  transform: rotateY(180deg);
+  background: var(--surface);
+  padding: 6%;
+  font-size: 0.8rem;
+}
+
+.person-btn--flipped .person-btn__face {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Sits on the ring at 45° either side of 12 o'clock */
+.person-btn__badge {
+  position: absolute;
+  top: 14.6%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: var(--shadow-sm);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.person-btn__badge--left {
+  left: 14.6%;
+}
+
+.person-btn__badge--right {
+  left: 85.4%;
 }
 
 .person-btn__meta {
@@ -99,5 +153,86 @@
   100% {
     transform: scale(1);
     opacity: 0.9;
+  }
+}
+
+@property --spin {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+.charge-orbit {
+  --charge: #f25e62;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  animation:
+    orbit-spin 4.5s linear infinite,
+    orbit-pop 0.55s cubic-bezier(0.34, 1.6, 0.64, 1);
+}
+
+.charge-orbit--neg {
+  --charge: #4a8fe7;
+  animation-direction: reverse, normal;
+}
+
+.charge-orbit__track {
+  position: absolute;
+  left: calc(-1 * var(--orbit-r));
+  top: calc(-1 * var(--orbit-r));
+  width: calc(2 * var(--orbit-r));
+  height: calc(2 * var(--orbit-r));
+  border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--charge) 45%, transparent);
+}
+
+.charge-orbit__particle {
+  --angle: calc(var(--a) + var(--spin));
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--charge);
+  color: #fff;
+  font: 800 13px/1 var(--font-body);
+  box-shadow:
+    0 0 8px var(--charge),
+    0 0 18px color-mix(in srgb, var(--charge) 50%, transparent);
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--angle)));
+}
+
+@keyframes orbit-spin {
+  to {
+    --spin: 360deg;
+  }
+}
+
+@keyframes orbit-pop {
+  0% {
+    scale: 0.4;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .person-btn__card {
+    transition: none;
+  }
+
+  .charge-orbit {
+    animation: none;
   }
 }

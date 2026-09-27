@@ -27,6 +27,12 @@
   white-space: nowrap;
 }
 
+.floating-arena__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 @media (max-width: 640px) {
   .floating-arena__hint {
     white-space: normal;

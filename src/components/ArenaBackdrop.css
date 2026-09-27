@@ -1,0 +1,269 @@
+.arena-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  animation: backdrop-in 0.6s ease-out;
+  transition: opacity 0.7s ease;
+}
+
+.arena-backdrop--leaving {
+  opacity: 0;
+}
+
+/* ---------- Collision photos ---------- */
+
+.arena-backdrop__photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px) saturate(1.2);
+  opacity: 0.45;
+  /* Oversized so the blurred edges never show */
+  transform: scale(1.12);
+  animation: photo-drift 5.7s linear both;
+}
+
+[data-theme='light'] .arena-backdrop__photo {
+  opacity: 0.35;
+}
+
+.arena-backdrop__wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 45%, transparent 35%, color-mix(in srgb, var(--bg0) 55%, transparent) 100%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg0) 10%, transparent), color-mix(in srgb, var(--bg0) 40%, transparent));
+}
+
+.arena-backdrop__blend {
+  position: absolute;
+  inset: 0;
+}
+
+.arena-backdrop__blend .arena-backdrop__photo {
+  width: 60%;
+}
+
+.arena-backdrop__blend .arena-backdrop__photo--a {
+  right: auto;
+  mask-image: linear-gradient(90deg, #000 40%, transparent 100%);
+}
+
+.arena-backdrop__blend .arena-backdrop__photo--b {
+  left: auto;
+  mask-image: linear-gradient(270deg, #000 40%, transparent 100%);
+}
+
+.arena-backdrop__icons,
+.arena-backdrop__caption,
+.arena-backdrop__side {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Common ground ---------- */
+
+.arena-backdrop--common {
+  background:
+    radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--a) 38%, transparent), transparent 60%),
+    radial-gradient(circle at 70% 62%, color-mix(in srgb, var(--b) 38%, transparent), transparent 60%),
+    color-mix(in srgb, color-mix(in srgb, var(--a) 50%, var(--b)) 10%, var(--bg0));
+}
+
+.arena-backdrop__common {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.arena-backdrop__icons {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.arena-backdrop__icon {
+  display: block;
+  opacity: 0.28;
+  animation:
+    backdrop-pop 0.6s cubic-bezier(0.34, 1.6, 0.64, 1) both,
+    backdrop-float 3.2s 0.6s ease-in-out infinite alternate;
+}
+
+.arena-backdrop__caption {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  opacity: 0.45;
+  text-align: center;
+  animation: caption-in 0.8s 0.2s ease-out both;
+}
+
+/* ---------- Worlds apart ---------- */
+
+.arena-backdrop__different {
+  position: absolute;
+  inset: 0;
+}
+
+.arena-backdrop__half {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.arena-backdrop__half--a {
+  clip-path: polygon(0 0, 58% 0, 42% 100%, 0 100%);
+  background: color-mix(in srgb, var(--a) 26%, var(--bg0));
+  justify-content: flex-start;
+  animation: backdrop-slide-a 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.arena-backdrop__half--b {
+  clip-path: polygon(58% 0, 100% 0, 100% 100%, 42% 100%);
+  background: color-mix(in srgb, var(--b) 26%, var(--bg0));
+  justify-content: flex-end;
+  animation: backdrop-slide-b 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.arena-backdrop__side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 40%;
+}
+
+.arena-backdrop__name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  opacity: 0.4;
+}
+
+.arena-backdrop__divider {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.arena-backdrop__divider polyline {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 3;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.35;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: backdrop-draw 0.5s 0.2s ease-out forwards;
+}
+
+.arena-backdrop--different .arena-backdrop__caption {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* ---------- Keyframes ---------- */
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes caption-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.45;
+  }
+}
+
+@keyframes backdrop-pop {
+  from {
+    transform: scale(0.2) rotate(-12deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.28;
+  }
+}
+
+@keyframes backdrop-float {
+  from {
+    transform: translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateY(-14px) rotate(3deg);
+  }
+}
+
+@keyframes backdrop-slide-a {
+  from {
+    transform: translateX(-30%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes backdrop-slide-b {
+  from {
+    transform: translateX(30%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes photo-drift {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1.18);
+  }
+}
+
+@keyframes backdrop-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arena-backdrop,
+  .arena-backdrop__icon,
+  .arena-backdrop__caption,
+  .arena-backdrop__half--a,
+  .arena-backdrop__half--b,
+  .arena-backdrop__photo {
+    animation: none;
+  }
+
+  .arena-backdrop__divider polyline {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

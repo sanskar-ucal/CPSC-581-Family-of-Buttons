@@ -5,12 +5,61 @@ export type Trait = {
   opposite: string
 }
 
+export type IconId =
+  | 'controller'
+  | 'music'
+  | 'ball'
+  | 'camera'
+  | 'clapperboard'
+  | 'plane'
+  | 'vase'
+  | 'hanger'
+
+export type HobbyId =
+  | 'gaming'
+  | 'music'
+  | 'sports'
+  | 'photography'
+  | 'travel'
+  | 'pottery'
+  | 'fashion'
+  | 'movies'
+
+export type Hobby = {
+  id: HobbyId
+  label: string
+  icon: IconId
+}
+
+export const hobbies: Record<HobbyId, Hobby> = {
+  gaming: { id: 'gaming', label: 'Gaming', icon: 'controller' },
+  music: { id: 'music', label: 'Music', icon: 'music' },
+  sports: { id: 'sports', label: 'Sports', icon: 'ball' },
+  photography: { id: 'photography', label: 'Photography', icon: 'camera' },
+  travel: { id: 'travel', label: 'Travelling', icon: 'plane' },
+  pottery: { id: 'pottery', label: 'Pottery', icon: 'vase' },
+  fashion: { id: 'fashion', label: 'Fashion', icon: 'hanger' },
+  movies: { id: 'movies', label: 'Watching movies', icon: 'clapperboard' },
+}
+
+export type Charge = 1 | -1
+
+export type Song = {
+  title: string
+  artist: string
+  src: string
+  cover?: string
+}
+
 export type Person = {
   id: string
   name: string
-  typeCode: string
   typeName: string
-  avatar: string
+  object: IconId
+  hobbies: HobbyId[]
+  photo?: string
+  gallery?: string[]
+  song: Song
   accent: string
   funFact: string
   summary: string
@@ -21,14 +70,27 @@ export type Person = {
 export const people: Person[] = [
   {
     id: 'sanskar',
-    name: 'Sanskar',
-    typeCode: 'ENTJ-A',
+    name: 'Sanskar Jha',
     typeName: 'Commander',
-    avatar: '/avatars/sanskar.svg',
+    photo: '/avatars/sanskar.jpg',
+    object: 'controller',
+    hobbies: ['gaming', 'sports', 'music'],
+    song: {
+      title: 'Roslyn',
+      artist: 'Bon Iver & St. Vincent',
+      src: '/music/sanskar.mp3',
+      cover: '/covers/sanskar.jpg',
+    },
+    gallery: [
+      '/photos/sanskar1.jpg',
+      '/photos/sanskar2.jpg',
+      '/photos/sanskar3.jpg',
+      '/photos/sanskar4.jpg',
+    ],
     accent: '#88619a',
-    funFact: 'Loves momentum — always finding a way, or making one.',
+    funFact: 'Loves momentum. Always finding a way, or making one.',
     summary:
-      'Commanders are bold, imaginative, and strong-willed, always finding a way — or making one. These decisive types love momentum and accomplishment, often acting on their creative visions.',
+      'Commanders are bold, imaginative, and strong-willed, always finding a way, or making one. These decisive types love momentum and accomplishment, often acting on their creative visions.',
     traits: [
       { label: 'Extraverted', percent: 64, color: '#4298b4', opposite: 'Introverted' },
       { label: 'Intuitive', percent: 74, color: '#e4ae3a', opposite: 'Observant' },
@@ -60,68 +122,114 @@ export const people: Person[] = [
     ],
   },
   {
-    id: 'friend2',
-    name: 'Friend 2',
-    typeCode: 'TBD',
-    typeName: 'Placeholder',
-    avatar: '/avatars/friend2.png',
-    accent: '#2d8a9e',
-    funFact: 'Placeholder fun fact — swap this later.',
+    id: 'mimi',
+    name: 'Amina Abdi',
+    typeName: 'Consul',
+    photo: '/avatars/mimi.jpg',
+    object: 'camera',
+    hobbies: ['photography', 'pottery', 'fashion'],
+    song: {
+      title: 'Rein Me In',
+      artist: 'Sam Fender & Olivia Dean',
+      src: '/music/mimi.mp3',
+      cover: '/covers/mimi.jpg',
+    },
+    gallery: ['/photos/mimi1.webp', '/photos/mimi2.webp', '/photos/mimi3.webp', '/photos/mimi4.webp'],
+    accent: '#33a474',
+    funFact: 'Leads with empathy. Harmony first, always.',
     summary:
-      'Friend 2’s full personality profile will go here once we add their 16Personalities results.',
+      "Hi, I'm Amina! I'm a computer science student who loves exploring the world, one trip, one meal and one photo at a time. I'm always up for meeting new people, trying a new cuisine, or snapping a cute picture to remember the moment.",
     traits: [
-      { label: 'Introverted', percent: 58, color: '#4298b4', opposite: 'Extraverted' },
+      { label: 'Extraverted', percent: 57, color: '#4298b4', opposite: 'Introverted' },
       { label: 'Observant', percent: 62, color: '#e4ae3a', opposite: 'Intuitive' },
-      { label: 'Feeling', percent: 70, color: '#33a474', opposite: 'Thinking' },
-      { label: 'Prospecting', percent: 55, color: '#88619a', opposite: 'Judging' },
-      { label: 'Turbulent', percent: 65, color: '#f25e62', opposite: 'Assertive' },
+      { label: 'Feeling', percent: 79, color: '#33a474', opposite: 'Thinking' },
+      { label: 'Judging', percent: 61, color: '#88619a', opposite: 'Prospecting' },
+      { label: 'Turbulent', percent: 85, color: '#f25e62', opposite: 'Assertive' },
     ],
     insights: [
       {
-        title: 'Coming soon',
-        text: 'Real insights will replace this placeholder when Friend 2’s data is added.',
+        title: 'Nature',
+        text: 'You likely value emotional expression and sensitivity, prioritizing empathy, social harmony, and cooperation.',
+      },
+      {
+        title: 'Energy',
+        text: 'You likely get energized by social interaction and tend to openly express your enthusiasm and excitement.',
+      },
+      {
+        title: 'Mind',
+        text: "You're likely practical and grounded, focusing on what you can see and experience firsthand.",
+      },
+      {
+        title: 'Tactics',
+        text: "You're likely organized and prefer clear plans, valuing structure when supporting the people around you.",
+      },
+      {
+        title: 'Identity',
+        text: "You're likely self-conscious and sensitive to stress, often pushing yourself to meet high standards.",
       },
     ],
   },
   {
-    id: 'friend3',
-    name: 'Friend 3',
-    typeCode: 'TBD',
-    typeName: 'Placeholder',
-    avatar: '/avatars/friend3.png',
-    accent: '#c46b3a',
-    funFact: 'Another placeholder fun fact for later.',
+    id: 'tanishk',
+    name: 'Tanishk Batish',
+    typeName: 'Architect',
+    photo: '/avatars/tanishk.jpg',
+    object: 'clapperboard',
+    hobbies: ['movies', 'music', 'travel'],
+    song: {
+      title: 'Middle Child',
+      artist: 'J. Cole',
+      src: '/music/tanishk.mp3',
+      cover: '/covers/tanishk.jpg',
+    },
+    gallery: [
+      '/photos/tanishk1.webp',
+      '/photos/tanishk2.webp',
+      '/photos/tanishk3.webp',
+      '/photos/tanishk4.webp',
+    ],
+    accent: '#5e4b8b',
+    funFact: 'Has a plan for everything, then a backup plan too.',
     summary:
-      'Friend 3’s full personality profile will go here once we add their 16Personalities results.',
+      "Hi, I'm Tanishk, third-year Computer Science student who enjoys learning about technology and exploring new ideas. Outside of academics, I love listening to music, travelling to new places, and watching movies. I enjoy trying new experiences, meeting new people, and making the most of my free time.",
     traits: [
-      { label: 'Extraverted', percent: 72, color: '#4298b4', opposite: 'Introverted' },
-      { label: 'Intuitive', percent: 51, color: '#e4ae3a', opposite: 'Observant' },
-      { label: 'Feeling', percent: 66, color: '#33a474', opposite: 'Thinking' },
-      { label: 'Judging', percent: 60, color: '#88619a', opposite: 'Prospecting' },
-      { label: 'Assertive', percent: 54, color: '#f25e62', opposite: 'Turbulent' },
+      { label: 'Introverted', percent: 68, color: '#4298b4', opposite: 'Extraverted' },
+      { label: 'Intuitive', percent: 75, color: '#e4ae3a', opposite: 'Observant' },
+      { label: 'Thinking', percent: 54, color: '#33a474', opposite: 'Feeling' },
+      { label: 'Judging', percent: 57, color: '#88619a', opposite: 'Prospecting' },
+      { label: 'Assertive', percent: 61, color: '#f25e62', opposite: 'Turbulent' },
     ],
     insights: [
       {
-        title: 'Coming soon',
-        text: 'Real insights will replace this placeholder when Friend 3’s data is added.',
+        title: 'Mind',
+        text: 'You likely prefer solitude to recharge and tend to process ideas carefully before sharing them.',
+      },
+      {
+        title: 'Energy',
+        text: "You're likely imaginative and future-focused, spotting patterns and possibilities others miss.",
+      },
+      {
+        title: 'Nature',
+        text: 'You likely lean on logic and objectivity when making decisions, even when feelings run high.',
+      },
+      {
+        title: 'Tactics',
+        text: "You're likely structured and decisive, preferring a clear plan over leaving things to chance.",
+      },
+      {
+        title: 'Identity',
+        text: "You're likely confident under pressure and trust your own judgment when navigating challenges.",
       },
     ],
   },
 ]
 
-const commonalityMap: Record<string, string[]> = {
-  'friend2-sanskar': [
-    'Both thrive when there’s a clear goal to chase.',
-    'Shared love of late-night brainstorming sessions.',
-  ],
-  'friend3-sanskar': [
-    'Both bring high energy to group projects.',
-    'Prefer deciding fast over endless debate.',
-  ],
-  'friend2-friend3': [
-    'Both value creative collaboration.',
-    'Placeholder commonality — replace later.',
-  ],
+export type PairInsight = {
+  kind: 'common' | 'different'
+  sharedHobbies: Hobby[]
+  uniqueA: Hobby[]
+  uniqueB: Hobby[]
+  lines: string[]
 }
 
 export function getPerson(id: string): Person | undefined {
@@ -132,11 +240,46 @@ export function pairKey(a: string, b: string): string {
   return [a, b].sort().join('-')
 }
 
-export function getCommonalities(a: string, b: string): string[] {
-  return (
-    commonalityMap[pairKey(a, b)] ?? [
-      'Something in common (placeholder).',
-      'Add a real commonality here later.',
+// traits[i] is the pole each person leans toward on the same dimension (E/I, N/S, T/F, J/P, A/T)
+function sharedTraitSides(a: Person, b: Person): string[] {
+  return a.traits.filter((t, i) => b.traits[i]?.label === t.label).map((t) => t.label)
+}
+
+function sharedHobbyIds(a: Person, b: Person): HobbyId[] {
+  return a.hobbies.filter((h) => b.hobbies.includes(h))
+}
+
+/** -1..1: positive pairs attract (similar), negative pairs repel (different) */
+export function getAffinity(a: Person, b: Person): number {
+  const traitScore = sharedTraitSides(a, b).length / a.traits.length
+  const hobbyScore = sharedHobbyIds(a, b).length > 0 ? 0.4 : 0
+  return 0.6 * traitScore + hobbyScore - 0.5
+}
+
+export function getPairInsight(a: Person, b: Person): PairInsight {
+  const shared = sharedHobbyIds(a, b)
+  const sharedHobbies = shared.map((id) => hobbies[id])
+  const uniqueA = a.hobbies.filter((h) => !shared.includes(h)).map((id) => hobbies[id])
+  const uniqueB = b.hobbies.filter((h) => !shared.includes(h)).map((id) => hobbies[id])
+
+  if (getAffinity(a, b) > 0) {
+    const lines = [
+      ...sharedHobbies.map((h) => `Both love ${h.label.toLowerCase()}.`),
+      ...sharedTraitSides(a, b).map((label) => `Both ${label}.`),
     ]
-  )
+    return { kind: 'common', sharedHobbies, uniqueA, uniqueB, lines }
+  }
+
+  const differing = a.traits
+    .map((t, i) => ({ a: t.label, b: b.traits[i]?.label }))
+    .filter((pair) => pair.b && pair.a !== pair.b)
+    .slice(0, 3)
+    .map((pair) => `${a.name} is ${pair.a}, ${b.name} is ${pair.b}.`)
+
+  const hobbyLines = [
+    uniqueA.length > 0 && `${a.name} is into ${uniqueA.map((h) => h.label.toLowerCase()).join(', ')}.`,
+    uniqueB.length > 0 && `${b.name} is into ${uniqueB.map((h) => h.label.toLowerCase()).join(', ')}.`,
+  ].filter((line): line is string => Boolean(line))
+
+  return { kind: 'different', sharedHobbies, uniqueA, uniqueB, lines: [...differing, ...hobbyLines] }
 }
