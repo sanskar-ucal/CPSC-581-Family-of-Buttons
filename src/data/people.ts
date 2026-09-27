@@ -92,7 +92,7 @@ export const people: Person[] = [
     accent: '#88619a',
     funFact: 'Loves momentum. Always finding a way, or making one.',
     summary:
-      'Commanders are bold, imaginative, and strong-willed, always finding a way, or making one. These decisive types love momentum and accomplishment, often acting on their creative visions.',
+      "Hi, I'm Sanskar! I'm a fourth-year Computer Science student who loves software development and has completed two software engineering co-ops at RBC in Toronto. Outside of coding and academics, I love playing video games (can't wait for GTA 6!), playing guitar and piano, and enjoying outdoor activities like golfing and trekking. Last summer, I even got to trek through the Himalayas!",
     traits: [
       { label: 'Extraverted', percent: 64, color: '#4298b4', opposite: 'Introverted' },
       { label: 'Intuitive', percent: 74, color: '#e4ae3a', opposite: 'Observant' },
