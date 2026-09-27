@@ -1,0 +1,238 @@
+.person-btn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  overflow: visible;
+  z-index: 1;
+  will-change: transform;
+  perspective: 700px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.person-btn--flipped {
+  z-index: 10;
+}
+
+.person-btn__ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.person-btn--bump .person-btn__ring {
+  animation: bump-flash 0.45s ease;
+}
+
+.person-btn__card {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+  pointer-events: none;
+}
+
+.person-btn--flipped .person-btn__card {
+  transform: rotateY(180deg);
+}
+
+.person-btn__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.person-btn__face--front {
+  background:
+    radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    var(--surface);
+}
+
+.person-btn__face--back {
+  transform: rotateY(180deg);
+  background: var(--surface);
+  padding: 6%;
+  font-size: 0.8rem;
+}
+
+.person-btn--flipped .person-btn__face {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Sits on the ring at 45° either side of 12 o'clock */
+.person-btn__badge {
+  position: absolute;
+  top: 14.6%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  box-shadow: var(--shadow-sm);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.person-btn__badge--left {
+  left: 14.6%;
+}
+
+.person-btn__badge--right {
+  left: 85.4%;
+}
+
+.person-btn__meta {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 11rem;
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.person-btn__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.person-btn__type {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.person-btn__fact {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes bump-flash {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  40% {
+    transform: scale(1.12);
+    opacity: 1;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+}
+
+@property --spin {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+.charge-orbit {
+  --charge: #f25e62;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  animation:
+    orbit-spin 4.5s linear infinite,
+    orbit-pop 0.55s cubic-bezier(0.34, 1.6, 0.64, 1);
+}
+
+.charge-orbit--neg {
+  --charge: #4a8fe7;
+  animation-direction: reverse, normal;
+}
+
+.charge-orbit__track {
+  position: absolute;
+  left: calc(-1 * var(--orbit-r));
+  top: calc(-1 * var(--orbit-r));
+  width: calc(2 * var(--orbit-r));
+  height: calc(2 * var(--orbit-r));
+  border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--charge) 45%, transparent);
+}
+
+.charge-orbit__particle {
+  --angle: calc(var(--a) + var(--spin));
+  position: absolute;
+  left: -9px;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--charge);
+  color: #fff;
+  font: 800 13px/1 var(--font-body);
+  box-shadow:
+    0 0 8px var(--charge),
+    0 0 18px color-mix(in srgb, var(--charge) 50%, transparent);
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--angle)));
+}
+
+@keyframes orbit-spin {
+  to {
+    --spin: 360deg;
+  }
+}
+
+@keyframes orbit-pop {
+  0% {
+    scale: 0.4;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .person-btn__card {
+    transition: none;
+  }
+
+  .charge-orbit {
+    animation: none;
+  }
+}

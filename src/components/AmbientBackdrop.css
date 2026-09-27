@@ -1,0 +1,61 @@
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  animation: ambient-in 2.5s ease-out;
+}
+
+@keyframes ambient-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.ambient__layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px) saturate(1.2);
+  opacity: 0;
+  /* Oversized so the blurred edges never show */
+  transform: scale(1.15);
+  transition:
+    opacity var(--ambient-fade) ease-in-out,
+    transform var(--ambient-drift) linear;
+}
+
+.ambient__layer--front {
+  opacity: 0.4;
+  transform: scale(1.24);
+}
+
+[data-theme='light'] .ambient__layer--front {
+  opacity: 0.32;
+}
+
+/* Theme-coloured wash keeps text contrast the same as the plain background */
+.ambient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 40%, transparent 35%, color-mix(in srgb, var(--bg0) 60%, transparent) 100%),
+    linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg0) 45%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient {
+    animation: none;
+  }
+
+  .ambient__layer {
+    transition: none;
+  }
+
+  .ambient__layer--front {
+    transform: scale(1.15);
+  }
+}
