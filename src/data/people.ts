@@ -103,23 +103,23 @@ export const people: Person[] = [
     insights: [
       {
         title: 'Energy',
-        text: 'You likely get energized by social interaction and tend to openly express your enthusiasm and excitement.',
+        text: 'Sanskar likely gets energized by social interaction and tends to openly express his enthusiasm and excitement.',
       },
       {
         title: 'Mind',
-        text: "You're likely very imaginative and open-minded, focusing on hidden meanings and distant possibilities.",
+        text: 'Sanskar is likely very imaginative and open-minded, focusing on hidden meanings and distant possibilities.',
       },
       {
         title: 'Nature',
-        text: 'You likely focus on objectivity and rationality, putting effectiveness above social harmony.',
+        text: 'Sanskar likely focuses on objectivity and rationality, putting effectiveness above social harmony.',
       },
       {
         title: 'Tactics',
-        text: "You're likely organized, decisive, and thorough, valuing structure and planning over spontaneity.",
+        text: 'Sanskar is likely organized, decisive, and thorough, valuing structure and planning over spontaneity.',
       },
       {
         title: 'Identity',
-        text: "You're likely self-assured, even-tempered, and resistant to stress, refusing to worry too much.",
+        text: 'Sanskar is likely self-assured, even-tempered, and resistant to stress, refusing to worry too much.',
       },
     ],
   },
@@ -156,23 +156,23 @@ export const people: Person[] = [
     insights: [
       {
         title: 'Nature',
-        text: 'You likely value emotional expression and sensitivity, prioritizing empathy, social harmony, and cooperation.',
+        text: 'Amina likely values emotional expression and sensitivity, prioritizing empathy, social harmony, and cooperation.',
       },
       {
         title: 'Energy',
-        text: 'You likely get energized by social interaction and tend to openly express your enthusiasm and excitement.',
+        text: 'Amina likely gets energized by social interaction and tends to openly express her enthusiasm and excitement.',
       },
       {
         title: 'Mind',
-        text: "You're likely practical and grounded, focusing on what you can see and experience firsthand.",
+        text: 'Amina is likely practical and grounded, focusing on what she can see and experience firsthand.',
       },
       {
         title: 'Tactics',
-        text: "You're likely organized and prefer clear plans, valuing structure when supporting the people around you.",
+        text: 'Amina is likely organized and prefers clear plans, valuing structure when supporting the people around her.',
       },
       {
         title: 'Identity',
-        text: "You're likely self-conscious and sensitive to stress, often pushing yourself to meet high standards.",
+        text: 'Amina is likely self-conscious and sensitive to stress, often pushing herself to meet high standards.',
       },
     ],
   },
@@ -209,23 +209,23 @@ export const people: Person[] = [
     insights: [
       {
         title: 'Mind',
-        text: 'You likely prefer solitude to recharge and tend to process ideas carefully before sharing them.',
+        text: 'Tanishk likely prefers solitude to recharge and tends to process ideas carefully before sharing them.',
       },
       {
         title: 'Energy',
-        text: "You're likely imaginative and future-focused, spotting patterns and possibilities others miss.",
+        text: 'Tanishk is likely imaginative and future-focused, spotting patterns and possibilities others miss.',
       },
       {
         title: 'Nature',
-        text: 'You likely lean on logic and objectivity when making decisions, even when feelings run high.',
+        text: 'Tanishk likely leans on logic and objectivity when making decisions, even when feelings run high.',
       },
       {
         title: 'Tactics',
-        text: "You're likely structured and decisive, preferring a clear plan over leaving things to chance.",
+        text: 'Tanishk is likely structured and decisive, preferring a clear plan over leaving things to chance.',
       },
       {
         title: 'Identity',
-        text: "You're likely confident under pressure and trust your own judgment when navigating challenges.",
+        text: 'Tanishk is likely confident under pressure and trusts his own judgment when navigating challenges.',
       },
     ],
   },
