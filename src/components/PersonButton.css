@@ -74,7 +74,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Sits on the ring at 45° either side of 12 o'clock */
 .person-btn__badge {
   position: absolute;
   top: 14.6%;

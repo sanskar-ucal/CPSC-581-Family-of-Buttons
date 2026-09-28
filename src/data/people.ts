@@ -247,7 +247,6 @@ export function pairKey(a: string, b: string): string {
   return [a, b].sort().join('-')
 }
 
-// traits[i] is the pole each person leans toward on the same dimension (E/I, N/S, T/F, J/P, A/T)
 function sharedTraitSides(a: Person, b: Person): string[] {
   return a.traits.filter((t, i) => b.traits[i]?.label === t.label).map((t) => t.label)
 }
@@ -256,7 +255,6 @@ function sharedHobbyIds(a: Person, b: Person): HobbyId[] {
   return a.hobbies.filter((h) => b.hobbies.includes(h))
 }
 
-/** -1..1: positive pairs attract (similar), negative pairs repel (different) */
 export function getAffinity(a: Person, b: Person): number {
   const traitScore = sharedTraitSides(a, b).length / a.traits.length
   const hobbyScore = sharedHobbyIds(a, b).length > 0 ? 0.4 : 0

@@ -17,7 +17,6 @@ type Props = {
   autoplayBlocked: boolean
 }
 
-// 33 1/3 rpm: one full turn of the record equals 1.8s of song, both when spinning and when scrubbing
 const SECONDS_PER_TURN = 1.8
 const SPIN_DEG_PER_SEC = 360 / SECONDS_PER_TURN
 const TAP_MAX_DEG = 6

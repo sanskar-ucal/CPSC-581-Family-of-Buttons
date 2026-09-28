@@ -21,18 +21,15 @@ const COLLISION_COOLDOWN_MS = 2800
 const TOAST_DURATION_MS = 4200
 const BACKDROP_DURATION_MS = 5000
 const FIELD_RANGE = 520
-// Repulsion only acts up close so different pairs swerve but can still collide
 const REPEL_RANGE = 250
 const CHARGE_K = 700
 const MAX_CHARGE_FORCE = 0.035
-// After touching, a pair's field switches off so attracting pairs separate instead of gluing
 const FIELD_QUIET_MS = 2200
 const ATTRACT_MIN_BOUNCE = 0.5
 const REPEL_BASE_BOUNCE = 0.9
 
 const CHARGE_STRENGTH = 0.3
 
-// First person is +; everyone similar to them starts opposite (attracting), everyone different starts alike (repelling)
 function createCharges() {
   const charges = new Map<string, Charge>()
   const [first, ...rest] = people
@@ -103,7 +100,6 @@ export function FloatingArena() {
     hoveredRef.current = hoveredId
   }, [hoveredId])
 
-  // Warm the cache so collision backdrops show photos instantly
   useEffect(() => {
     for (const p of people) {
       for (const src of p.gallery ?? []) new Image().src = src
@@ -114,14 +110,12 @@ export function FloatingArena() {
     const el = arenaRef.current
     if (!el) return
 
-    // Positive = opposite charges (attract), negative = like charges (repel)
     const chargeOf = (a: Body, b: Body) => {
       const ca = chargeRef.current.get(a.id) ?? 1
       const cb = chargeRef.current.get(b.id) ?? 1
       return -ca * cb * CHARGE_STRENGTH
     }
 
-    // Flip one of the pair; if that leaves everyone alike, nobody could ever attract, so flip a bystander too
     const flipCharges = (a: Body, b: Body) => {
       const map = chargeRef.current
       const flipped = Math.random() < 0.5 ? a.person : b.person
@@ -211,7 +205,6 @@ export function FloatingArena() {
 
       for (const b of bodies) b.frozen = b.id === hoveredRef.current
 
-      // Charge field: similar pairs pull together, different pairs push apart
       for (let i = 0; i < bodies.length; i++) {
         for (let j = i + 1; j < bodies.length; j++) {
           const a = bodies[i]
@@ -263,13 +256,11 @@ export function FloatingArena() {
           b.vy = -Math.abs(b.vy)
         }
 
-        // gentle drift so they never fully stop
         const speed = Math.hypot(b.vx, b.vy)
         if (speed < 0.28) {
           b.vx += rand(-0.1, 0.1)
           b.vy += rand(-0.1, 0.1)
         }
-        // bleed off repel shots back toward a calm drift
         if (speed > 1.2) {
           b.vx *= 0.992
           b.vy *= 0.992
@@ -280,7 +271,6 @@ export function FloatingArena() {
         }
       }
 
-      // Resolve overlaps twice so multi-ball piles don't stick/fuse
       for (let pass = 0; pass < 2; pass++) {
         for (let i = 0; i < bodies.length; i++) {
           for (let j = i + 1; j < bodies.length; j++) {
@@ -295,19 +285,16 @@ export function FloatingArena() {
 
             if (dist >= minDist) continue
 
-            // Bounce with the charge the pair arrived with, before this hit flips it
             const minBounce = minBounceFor(chargeOf(a, b))
             if (pass === 0) {
               lastContactRef.current.set(pairKey(a.id, b.id), now)
               onCollide(a, b, now)
             }
 
-            // Normal from a → b (same idea as a wall normal)
             const nx = dx / dist
             const ny = dy / dist
             const overlap = minDist - dist
 
-            // A hovered (held) ball acts like a wall: only the free ball moves and reflects
             if (a.frozen || b.frozen) {
               const free = a.frozen ? b : a
               const ox = free === b ? nx : -nx
@@ -327,25 +314,20 @@ export function FloatingArena() {
               continue
             }
 
-            // Hard separate so they never stay overlapped / fused
             a.x -= nx * (overlap * 0.5 + 0.5)
             a.y -= ny * (overlap * 0.5 + 0.5)
             b.x += nx * (overlap * 0.5 + 0.5)
             b.y += ny * (overlap * 0.5 + 0.5)
 
-            // Normal speed of each ball along the collision axis
             const vaN = a.vx * nx + a.vy * ny
             const vbN = b.vx * nx + b.vy * ny
-            // Closing in? (a moving toward b along n)
             if (vaN - vbN <= 0) continue
 
-            // Equal-mass elastic bounce: swap normal components (like flipping off a wall)
             a.vx += (vbN - vaN) * nx
             a.vy += (vbN - vaN) * ny
             b.vx += (vaN - vbN) * nx
             b.vy += (vaN - vbN) * ny
 
-            // Repelling pairs shoot apart; attracting pairs leave gently
             const aOut = a.vx * nx + a.vy * ny
             const bOut = b.vx * nx + b.vy * ny
             if (aOut > -minBounce) {

@@ -17,7 +17,6 @@ type Props = {
 const FADE_OUT_MS = 700
 const ICON_SIZE = 220
 
-// Zigzag from the top of the split (58%) to the bottom (42%)
 const DIVIDER_POINTS = Array.from({ length: 11 }, (_, i) => {
   const t = i / 10
   const x = 58 - 16 * t + (i % 2 === 0 ? -2.5 : 2.5)
