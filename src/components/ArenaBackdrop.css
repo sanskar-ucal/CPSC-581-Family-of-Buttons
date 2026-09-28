@@ -12,8 +12,6 @@
   opacity: 0;
 }
 
-/* ---------- Collision photos ---------- */
-
 .arena-backdrop__photo {
   position: absolute;
   inset: 0;
@@ -21,7 +19,6 @@
   background-position: center;
   filter: blur(24px) saturate(1.2);
   opacity: 0.45;
-  /* Oversized so the blurred edges never show */
   transform: scale(1.12);
   animation: photo-drift 5.7s linear both;
 }
@@ -64,8 +61,6 @@
   z-index: 1;
 }
 
-/* ---------- Common ground ---------- */
-
 .arena-backdrop--common {
   background:
     radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--a) 38%, transparent), transparent 60%),
@@ -107,8 +102,6 @@
   text-align: center;
   animation: caption-in 0.8s 0.2s ease-out both;
 }
-
-/* ---------- Worlds apart ---------- */
 
 .arena-backdrop__different {
   position: absolute;
@@ -178,8 +171,6 @@
   transform: translateX(-50%);
   white-space: nowrap;
 }
-
-/* ---------- Keyframes ---------- */
 
 @keyframes backdrop-in {
   from {

@@ -20,7 +20,6 @@
   background-position: center;
   filter: blur(40px) saturate(1.2);
   opacity: 0;
-  /* Oversized so the blurred edges never show */
   transform: scale(1.15);
   transition:
     opacity var(--ambient-fade) ease-in-out,
@@ -36,7 +35,6 @@
   opacity: 0.32;
 }
 
-/* Theme-coloured wash keeps text contrast the same as the plain background */
 .ambient::after {
   content: '';
   position: absolute;
