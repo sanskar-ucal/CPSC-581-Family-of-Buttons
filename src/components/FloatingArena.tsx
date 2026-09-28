@@ -389,7 +389,13 @@ export function FloatingArena() {
             )
           })}
       </div>
-      <CommonalityToast toast={toast} />
+      <CommonalityToast
+        toast={toast}
+        onDismiss={() => {
+          window.clearTimeout(toastTimerRef.current)
+          setToast(null)
+        }}
+      />
     </div>
   )
 }
